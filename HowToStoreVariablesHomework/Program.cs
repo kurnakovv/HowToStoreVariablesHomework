@@ -15,7 +15,7 @@ builder.Services.AddHealthChecks();
 builder.Configuration.AddUserSecrets<Program>();
 
 builder.Services.AddSingleton(builder.Configuration.GetSection("Img").Get<ImgConstants>());
-builder.Services.AddSingleton(builder.Configuration.GetSection("ADMIN").Get<AdminConstant>());
+builder.Services.AddSingleton(builder.Configuration.GetSection("ADMIN")?.Get<AdminConstant>());
 
 var app = builder.Build();
 
