@@ -1,4 +1,5 @@
-﻿using HowToStoreVariablesHomework.Secrets;
+﻿using GenericEnv;
+using HowToStoreVariablesHomework.Secrets;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,7 +20,17 @@ namespace HowToStoreVariablesHomework.Controllers
         [HttpPost]
         public string Login(int password)
         {
-            if (password != _adminConstant.PASSWORD)
+            string adminPasswordEnv = Environment.GetEnvironmentVariable("ADMIN__PASSWORD");
+            int adminPassword = 0;
+            if (adminPasswordEnv != null)
+            {
+                adminPassword = int.Parse(adminPasswordEnv);
+            }
+            else
+            {
+                adminPassword = _adminConstant.PASSWORD;
+            }
+            if (password != adminPassword)
             {
                 return "You are not admin!";
             }
