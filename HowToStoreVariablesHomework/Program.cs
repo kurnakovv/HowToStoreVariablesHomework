@@ -1,3 +1,6 @@
+using HowToStoreVariablesHomework.Constants;
+using HowToStoreVariablesHomework.Secrets;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -8,6 +11,11 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddHealthChecks();
+
+builder.Configuration.AddUserSecrets<Program>();
+
+builder.Services.AddSingleton(builder.Configuration.GetSection("Img").Get<ImgConstants>());
+builder.Services.AddSingleton(builder.Configuration.GetSection("ADMIN").Get<AdminConstant>());
 
 var app = builder.Build();
 
