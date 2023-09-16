@@ -15,10 +15,10 @@ builder.Services.AddHealthChecks();
 builder.Configuration.AddUserSecrets<Program>();
 
 builder.Services.AddSingleton(builder.Configuration.GetSection("Img").Get<ImgConstants>());
-var adminSection = builder.Configuration.GetSection("ADMIN");
-if (adminSection != null)
+var adminConstant = builder.Configuration.GetSection("ADMIN")?.Get<AdminConstant>();
+if (adminConstant != null)
 {
-    builder.Services.AddSingleton(adminSection.Get<AdminConstant>());
+    builder.Services.AddSingleton(adminConstant);
 }
 
 var app = builder.Build();
